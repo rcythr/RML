@@ -50,3 +50,7 @@ struct RMLHtmlNode : public RMLNode
 	void addChild(std::shared_ptr<RMLNode> child);
 };
 
+struct RMLTemplateArgNode : public RMLNode
+{
+	
+};

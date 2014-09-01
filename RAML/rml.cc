@@ -10,9 +10,10 @@
 
 struct Node
 {
-	Node(size_t lineno, std::string content) : lineno(lineno), content(content) {}
+	Node(size_t lineno, size_t depth, std::string content) : lineno(lineno), depth(depth), content(content) {}
 
 	size_t lineno;
+	size_t depth;
 	std::string content;
 	std::vector<std::shared_ptr<Node>> children;
 };
@@ -134,7 +135,7 @@ std::shared_ptr<Node> toNodeTreeRec(std::vector<std::tuple<size_t, std::string>>
 		size_t nextDepth = std::get<0>(elements[index]);
 		if (nextDepth == depth)
 		{
-			auto node = std::make_shared<Node>(index+1, std::get<1>(elements[index]));
+			auto node = std::make_shared<Node>(index+1, depth, std::get<1>(elements[index]));
 			++index;
 
 			auto child = toNodeTreeRec(elements, index, depth + 1);
@@ -169,7 +170,7 @@ std::vector<std::shared_ptr<Node>> toNodeTree(std::vector<std::tuple<size_t, std
 
 		if (std::get<0>(countedIndents[index]) == 0)
 		{
-			auto root = std::make_shared<Node>(index+1, std::get<1>(countedIndents[index]));
+			auto root = std::make_shared<Node>(index+1, 0, std::get<1>(countedIndents[index]));
 			++index;
 
 			auto child = toNodeTreeRec(countedIndents, index, 1);
@@ -189,6 +190,8 @@ std::vector<std::shared_ptr<Node>> toNodeTree(std::vector<std::tuple<size_t, std
 
 	return result;
 }
+
+void handleSubNodes(std::shared_ptr<RMLHtmlNode> htmlNode, std::shared_ptr<Node> node);
 
 std::shared_ptr<RMLNode> toRMLTree(std::shared_ptr<Node> node)
 {
@@ -269,10 +272,12 @@ std::shared_ptr<RMLNode> toRMLTree(std::shared_ptr<Node> node)
 			case '\t': //break;
 			case '.':
 				htmlNode->id = buffer1;
+				buffer1 = "";
 				state = LineParseState::Class;
 				break;
 			case ' ':
 				htmlNode->id = buffer1;
+				buffer1 = "";
 				state = LineParseState::AttrKey;
 				break;
 			default:
@@ -494,15 +499,34 @@ std::shared_ptr<RMLNode> toRMLTree(std::shared_ptr<Node> node)
 		textNode->content = buffer1;
 		return textNode;
 	case LineParseState::Tag:
-		if (htmlNode == nullptr)
-			htmlNode = std::make_shared<RMLHtmlNode>();
+	{
+		bool html5 = isHtml5Tag(buffer1);
+		bool dep = isDeprecatedTag(buffer1);
 
-		htmlNode->name = buffer1;
-		for (auto& child : node->children)
+		if (html5 || dep)
 		{
-			htmlNode->addChild(toRMLTree(child));
+			if (dep)
+			{
+				std::cerr << "Warning: The \'" << buffer1 << "\' tag is deprecated. Consider replacing it." << std::endl;
+			}
+
+			if (htmlNode == nullptr)
+				htmlNode = std::make_shared<RMLHtmlNode>();
+
+			htmlNode->name = buffer1;
+			for (auto& child : node->children)
+			{
+				htmlNode->addChild(toRMLTree(child));
+			}
+			return htmlNode;
 		}
-		return htmlNode;
+		else
+		{
+			textNode = std::make_shared<RMLTextNode>();
+			textNode->content = buffer1;
+			return textNode;
+		}
+	}
 	case LineParseState::Class:
 		htmlNode->classes.push_back(buffer1);
 		for (auto& child : node->children)

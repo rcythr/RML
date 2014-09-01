@@ -3,6 +3,10 @@
 
 #include "rml_node.hpp"
 
+#include "constants.h"
+
+#include <iostream>
+
 void RMLTextNode::write(std::stringstream& output, IndentType indent, size_t depth)
 {
 	writeIndent(output, indent, depth);
@@ -39,6 +43,11 @@ void RMLHtmlNode::write(std::stringstream& output, IndentType indent, size_t dep
 	// Add all other attributes.
 	for (const auto& attr : attrs)
 	{
+		if (!isAttributeValidForTag(name, attr.first))
+		{
+			std::cerr << "Warning! The attribute '" << attr.first << "' is not valid for tag '" << name << "' by the HTML5 specification. It may be deprecated, bad style, or otherwise wrong. " << std::endl;
+		}
+
 		if (attr.second.size() == 0)
 		{
 			output << ' ' << attr.first;
@@ -49,17 +58,32 @@ void RMLHtmlNode::write(std::stringstream& output, IndentType indent, size_t dep
 		}
 	}
 
-	output << '>';
-	writeEnding(output, indent);
+	bool voidTag = isVoidTag(name);
 
-	for (const auto& child : children)
+	if (voidTag && children.size() > 0)
 	{
-		child->write(output, indent, depth+1);
+		std::cerr << "Warning! The tag '" << name << "' contains children, but is not allowed to by the HTML5 specification." << std::endl;
 	}
 
-	writeIndent(output, indent, depth);
-	output << "</" << name << '>';
-	writeEnding(output, indent);
+	if (voidTag && children.size() == 0)
+	{
+		output << " />";
+		writeEnding(output, indent);
+	}
+	else
+	{
+		output << '>';
+		writeEnding(output, indent);
+
+		for (const auto& child : children)
+		{
+			child->write(output, indent, depth + 1);
+		}
+
+		writeIndent(output, indent, depth);
+		output << "</" << name << '>';
+		writeEnding(output, indent);
+	}
 }
 
 void RMLHtmlNode::addChild(std::shared_ptr<RMLNode> child)

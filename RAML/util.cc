@@ -20,3 +20,18 @@ void split(std::string& data, char delim, std::vector<std::string>& out)
 	}
 	out.push_back(buf);
 }
+
+bool beginsWith(const std::string& data, std::string substr)
+{
+	// Trivial case
+	if (substr.length() > data.length())
+		return false;
+
+	for (size_t i = 0; i < substr.length(); ++i)
+	{
+		if (data[i] != substr[i])
+			return false;
+	}
+
+	return true;
+}

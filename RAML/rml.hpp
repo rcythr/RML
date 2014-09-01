@@ -14,6 +14,7 @@ struct RML
 private:
 
 	std::list<std::shared_ptr<RMLNode>> roots;
+	std::map<std::string, std::shared_ptr<RMLNode>> templates;
 
 public:
 
