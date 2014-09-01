@@ -8,6 +8,9 @@
 #include <set>
 #include <string>
 
+namespace rml
+{
+
 extern std::unordered_set<std::string> html5Tags;
 extern std::unordered_set<std::string> depTags;
 extern std::unordered_set<std::string> globalAttributes;
@@ -20,3 +23,5 @@ bool isDeprecatedTag(std::string& tag);
 bool isVoidTag(std::string& tag);
 
 bool isAttributeValidForTag(const std::string& tag, const std::string& attr);
+
+}

@@ -9,6 +9,9 @@
 
 #include <RML/rml_node.hpp>
 
+namespace rml
+{
+
 struct RML
 {
 private:
@@ -27,3 +30,5 @@ public:
 	std::string toHtml(IndentType indent = IndentType::Space);
 
 };
+
+}

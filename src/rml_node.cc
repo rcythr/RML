@@ -7,6 +7,8 @@
 
 #include <iostream>
 
+using namespace rml;
+
 void RMLTextNode::write(std::stringstream& output, IndentType indent, size_t depth)
 {
 	writeIndent(output, indent, depth);

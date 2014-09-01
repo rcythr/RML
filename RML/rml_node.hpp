@@ -10,6 +10,9 @@
 #include <memory>
 #include <sstream>
 
+namespace rml
+{
+
 enum class IndentType
 {
 	Unknown,
@@ -50,7 +53,4 @@ struct RMLHtmlNode : public RMLNode
 	void addChild(std::shared_ptr<RMLNode> child);
 };
 
-struct RMLTemplateArgNode : public RMLNode
-{
-	
-};
+}

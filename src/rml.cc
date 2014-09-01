@@ -8,6 +8,8 @@
 #include <functional>
 #include <iostream>
 
+using namespace rml;
+
 struct Node
 {
 	Node(size_t lineno, size_t depth, std::string content) : lineno(lineno), depth(depth), content(content) {}

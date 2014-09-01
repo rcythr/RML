@@ -4,6 +4,9 @@
 #include <RML/constants.hpp>
 #include <RML/util.hpp>
 
+namespace rml
+{
+
 std::unordered_set<std::string> html5Tags
 {
 	"a",
@@ -290,4 +293,6 @@ bool isAttributeValidForTag(const std::string& tag, const std::string& attr)
 
 	// With an invalid tag there are no valid attributes.
 	return false;
+}
+
 }

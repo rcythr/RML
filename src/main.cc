@@ -7,6 +7,8 @@
 #include <iostream>
 #include <fstream>
 
+using namespace rml;
+
 int main(int argc, char* argv[])
 {
 	std::string filedata;
