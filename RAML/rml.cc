@@ -421,6 +421,9 @@ std::shared_ptr<RMLNode> toRMLTree(std::shared_ptr<Node> node)
 			case '\\':
 				state = LineParseState::AttrValueSingleEsc;
 				break;
+			case '\"':
+				buffer2 += "\\\"";
+				break;
 			default:
 				buffer2 += c;
 				break;
@@ -431,9 +434,11 @@ std::shared_ptr<RMLNode> toRMLTree(std::shared_ptr<Node> node)
 			{
 			case '\\':
 				buffer2 += '\\';
+				state = LineParseState::AttrValueSingle;
 				break;
 			case '\'':
 				buffer2 += '\'';
+				state = LineParseState::AttrValueSingle;
 				break;
 			default:
 				buffer2 += '\\';
@@ -451,7 +456,7 @@ std::shared_ptr<RMLNode> toRMLTree(std::shared_ptr<Node> node)
 				state = LineParseState::EndAttr;
 				break;
 			case '\\':
-				state = LineParseState::AttrValueSingleEsc;
+				state = LineParseState::AttrValueDoubleEsc;
 				break;
 			default:
 				buffer2 += c;
@@ -463,9 +468,11 @@ std::shared_ptr<RMLNode> toRMLTree(std::shared_ptr<Node> node)
 			{
 			case '\\':
 				buffer2 += '\\';
+				state = LineParseState::AttrValueDouble;
 				break;
 			case '\"':
-				buffer2 += '\"';
+				buffer2 += "\\\"";
+				state = LineParseState::AttrValueDouble;
 				break;
 			default:
 				buffer2 += '\\';
