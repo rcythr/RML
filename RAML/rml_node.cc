@@ -1,16 +1,16 @@
-// This file is part of RAML
-// RAML is licensed with the MIT License. See the LICENSE file for more information.
+// This file is part of RML
+// RML is licensed with the MIT License. See the LICENSE file for more information.
 
-#include "raml_node.hpp"
+#include "rml_node.hpp"
 
-void RAMLTextNode::write(std::stringstream& output, IndentType indent, size_t depth)
+void RMLTextNode::write(std::stringstream& output, IndentType indent, size_t depth)
 {
 	writeIndent(output, indent, depth);
 	output << content;
 	writeEnding(output, indent);
 }
 
-void RAMLHtmlNode::write(std::stringstream& output, IndentType indent, size_t depth)
+void RMLHtmlNode::write(std::stringstream& output, IndentType indent, size_t depth)
 {
 	writeIndent(output, indent, depth);
 	output << '<' << name;
@@ -62,12 +62,12 @@ void RAMLHtmlNode::write(std::stringstream& output, IndentType indent, size_t de
 	writeEnding(output, indent);
 }
 
-void RAMLHtmlNode::addChild(std::shared_ptr<RAMLNode> child)
+void RMLHtmlNode::addChild(std::shared_ptr<RMLNode> child)
 {
 	children.push_back(child);
 }
 
-void RAMLNode::writeIndent(std::stringstream& output, IndentType indent, size_t depth)
+void RMLNode::writeIndent(std::stringstream& output, IndentType indent, size_t depth)
 {
 	for (size_t i = 0; i < depth; ++i)
 	{
@@ -85,7 +85,7 @@ void RAMLNode::writeIndent(std::stringstream& output, IndentType indent, size_t 
 	}
 }
 
-void RAMLNode::writeEnding(std::stringstream& output, IndentType indent)
+void RMLNode::writeEnding(std::stringstream& output, IndentType indent)
 {
 	if (indent != IndentType::Unknown)
 		output << std::endl;

@@ -1,7 +1,7 @@
-// This file is part of RAML
-// RAML is licensed with the MIT License. See the LICENSE file for more information.
+// This file is part of RML
+// RML is licensed with the MIT License. See the LICENSE file for more information.
 
-#include "raml.hpp"
+#include "rml.hpp"
 #include "util.hpp"
 #include "constants.h"
 
@@ -190,10 +190,10 @@ std::vector<std::shared_ptr<Node>> toNodeTree(std::vector<std::tuple<size_t, std
 	return result;
 }
 
-std::shared_ptr<RAMLNode> toRAMLTree(std::shared_ptr<Node> node)
+std::shared_ptr<RMLNode> toRMLTree(std::shared_ptr<Node> node)
 {
-	std::shared_ptr<RAMLHtmlNode> htmlNode = nullptr;
-	std::shared_ptr<RAMLTextNode> textNode = nullptr;
+	std::shared_ptr<RMLHtmlNode> htmlNode = nullptr;
+	std::shared_ptr<RMLTextNode> textNode = nullptr;
 	std::string buffer1, buffer2;
 
 	LineParseState state = LineParseState::Tag;
@@ -205,7 +205,7 @@ std::shared_ptr<RAMLNode> toRAMLTree(std::shared_ptr<Node> node)
 			switch (c)
 			{
 			case '_':
-				textNode = std::make_shared<RAMLTextNode>();
+				textNode = std::make_shared<RMLTextNode>();
 				state = LineParseState::Text;
 				break;
 			case '#': //break;
@@ -222,7 +222,7 @@ std::shared_ptr<RAMLNode> toRAMLTree(std::shared_ptr<Node> node)
 						std::cerr << "Warning: The \'" << buffer1 << "\' tag is deprecated. Consider replacing it." << std::endl;
 					}
 
-					htmlNode = std::make_shared<RAMLHtmlNode>();
+					htmlNode = std::make_shared<RMLHtmlNode>();
 					htmlNode->name = buffer1;
 					buffer1 = "";
 					if (c == ' ')
@@ -234,7 +234,7 @@ std::shared_ptr<RAMLNode> toRAMLTree(std::shared_ptr<Node> node)
 				}
 				else
 				{
-					textNode = std::make_shared<RAMLTextNode>();
+					textNode = std::make_shared<RMLTextNode>();
 					buffer1 += c;
 					state = LineParseState::Text;
 				}
@@ -495,60 +495,60 @@ std::shared_ptr<RAMLNode> toRAMLTree(std::shared_ptr<Node> node)
 		return textNode;
 	case LineParseState::Tag:
 		if (htmlNode == nullptr)
-			htmlNode = std::make_shared<RAMLHtmlNode>();
+			htmlNode = std::make_shared<RMLHtmlNode>();
 
 		htmlNode->name = buffer1;
 		for (auto& child : node->children)
 		{
-			htmlNode->addChild(toRAMLTree(child));
+			htmlNode->addChild(toRMLTree(child));
 		}
 		return htmlNode;
 	case LineParseState::Class:
 		htmlNode->classes.push_back(buffer1);
 		for (auto& child : node->children)
 		{
-			htmlNode->addChild(toRAMLTree(child));
+			htmlNode->addChild(toRMLTree(child));
 		}
 		return htmlNode;
 	case LineParseState::Id:
 		htmlNode->id = buffer1;
 		for (auto& child : node->children)
 		{
-			htmlNode->addChild(toRAMLTree(child));
+			htmlNode->addChild(toRMLTree(child));
 		}
 		return htmlNode;
 	case LineParseState::AttrKey:
 		htmlNode->attrs[buffer1] = "";
 		for (auto& child : node->children)
 		{
-			htmlNode->addChild(toRAMLTree(child));
+			htmlNode->addChild(toRMLTree(child));
 		}
 		return htmlNode;
 	case LineParseState::AttrKeyEndWs:
 		htmlNode->attrs[buffer1] = "";
 		for (auto& child : node->children)
 		{
-			htmlNode->addChild(toRAMLTree(child));
+			htmlNode->addChild(toRMLTree(child));
 		}
 		return htmlNode;
 	case LineParseState::AttrValue:
 		htmlNode->attrs[buffer1] = "";
 		for (auto& child : node->children)
 		{
-			htmlNode->addChild(toRAMLTree(child));
+			htmlNode->addChild(toRMLTree(child));
 		}
 		return htmlNode;
 	case LineParseState::AttrValueNoEsc:
 		htmlNode->attrs[buffer1] = buffer2;
 		for (auto& child : node->children)
 		{
-			htmlNode->addChild(toRAMLTree(child));
+			htmlNode->addChild(toRMLTree(child));
 		}
 		return htmlNode;
 	case LineParseState::EndAttr:
 		for (auto& child : node->children)
 		{
-			htmlNode->addChild(toRAMLTree(child));
+			htmlNode->addChild(toRMLTree(child));
 		}
 		return htmlNode;
 	default:
@@ -558,19 +558,19 @@ std::shared_ptr<RAMLNode> toRAMLTree(std::shared_ptr<Node> node)
 	throw std::runtime_error(std::string("Parse error while parsing line #") + std::to_string(node->lineno));
 }
 
-RAML RAML::create(std::string filedata)
+RML RML::create(std::string filedata)
 {
-	RAML raml;
+	RML raml;
 
 	for (auto root : toNodeTree(countIndents(toLines(filedata))))
 	{
-		raml.roots.push_back(toRAMLTree(root));
+		raml.roots.push_back(toRMLTree(root));
 	}
 
 	return raml;
 }
 
-std::string RAML::toHtml(IndentType indent)
+std::string RML::toHtml(IndentType indent)
 {
 	std::stringstream output;
 

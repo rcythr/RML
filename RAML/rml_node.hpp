@@ -1,5 +1,5 @@
-// This file is part of RAML
-// RAML is licensed with the MIT License. See the LICENSE file for more information.
+// This file is part of RML
+// RML is licensed with the MIT License. See the LICENSE file for more information.
 
 #pragma once
 
@@ -17,9 +17,9 @@ enum class IndentType
 	Tab
 };
 
-struct RAMLNode
+struct RMLNode
 {
-	virtual ~RAMLNode() {}
+	virtual ~RMLNode() {}
 
 	static void writeIndent(std::stringstream& output, IndentType indent, size_t depth);
 	static void writeEnding(std::stringstream& output, IndentType indent);
@@ -27,26 +27,26 @@ struct RAMLNode
 	virtual void write(std::stringstream& output, IndentType indent, size_t depth) = 0;
 };
 
-struct RAMLTextNode : public RAMLNode
+struct RMLTextNode : public RMLNode
 {
 	std::string content;
 
 	virtual void write(std::stringstream& output, IndentType indent, size_t depth) override;
 };
 
-struct RAMLHtmlNode : public RAMLNode
+struct RMLHtmlNode : public RMLNode
 {
-	RAMLHtmlNode() {}
-	RAMLHtmlNode(std::string name) : name(name) {}
+	RMLHtmlNode() {}
+	RMLHtmlNode(std::string name) : name(name) {}
 
 	std::string name;
 	std::string id;
 	std::vector<std::string> classes;
 	std::map<std::string, std::string> attrs;
-	std::list<std::shared_ptr<RAMLNode>> children;
+	std::list<std::shared_ptr<RMLNode>> children;
 
 	virtual void write(std::stringstream& output, IndentType indent, size_t depth) override;
 
-	void addChild(std::shared_ptr<RAMLNode> child);
+	void addChild(std::shared_ptr<RMLNode> child);
 };
 

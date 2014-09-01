@@ -1,5 +1,5 @@
-// This file is part of RAML
-// RAML is licensed with the MIT License. See the LICENSE file for more information.
+// This file is part of RML
+// RML is licensed with the MIT License. See the LICENSE file for more information.
 
 #include "util.hpp"
 

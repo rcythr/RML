@@ -13,6 +13,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9CCD0599-05BD-4CC8-A9E7-68684D82C9D9}</ProjectGuid>
     <RootNamespace>RAML</RootNamespace>
+    <ProjectName>RML</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -65,15 +66,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="constants.h" />
-    <ClInclude Include="raml.hpp" />
-    <ClInclude Include="raml_node.hpp" />
+    <ClInclude Include="rml.hpp" />
+    <ClInclude Include="rml_node.hpp" />
     <ClInclude Include="util.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="constants.cc" />
     <ClCompile Include="main.cc" />
-    <ClCompile Include="raml.cc" />
-    <ClCompile Include="raml_node.cc" />
+    <ClCompile Include="rml.cc" />
+    <ClCompile Include="rml_node.cc" />
     <ClCompile Include="util.cc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

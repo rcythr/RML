@@ -1,7 +1,7 @@
-// This file is part of RAML
-// RAML is licensed with the MIT License. See the LICENSE file for more information.
+// This file is part of RML
+// RML is licensed with the MIT License. See the LICENSE file for more information.
 
-#include "raml.hpp"
+#include "rml.hpp"
 
 #include <algorithm>
 #include <iostream>
@@ -60,7 +60,7 @@ int main(int argc, char* argv[])
 	{
 		try
 		{
-			std::cout << RAML::create(filedata).toHtml(indent);
+			std::cout << RML::create(filedata).toHtml(indent);
 		}
 		catch (std::runtime_error re)
 		{
