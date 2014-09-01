@@ -1,3 +1,6 @@
+// This file is part of RAML
+// RAML is licensed with the MIT License. See the LICENSE file for more information.
+
 #include "raml.hpp"
 #include "util.hpp"
 #include "constants.h"

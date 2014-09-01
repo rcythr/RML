@@ -1,3 +1,6 @@
+// This file is part of RAML
+// RAML is licensed with the MIT License. See the LICENSE file for more information.
+
 #include "util.hpp"
 
 void split(std::string& data, char delim, std::vector<std::string>& out)
