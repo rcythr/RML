@@ -607,6 +607,8 @@ std::string RML::toHtml(IndentType indent)
 {
 	std::stringstream output;
 
+    output << "<!DOCTYPE html>" << std::endl;
+
 	for (auto root : roots)
 	{
 		root->write(output, indent, 0);

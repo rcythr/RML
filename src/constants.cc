@@ -152,7 +152,7 @@ std::unordered_set<std::string> deprecatedTags
 
 std::unordered_set<std::string> globalAttributes
 {
-	{ "accesskey",
+	"accesskey",
 	"class",
 	"contenteditable",
 	"contextmenu",
@@ -170,7 +170,10 @@ std::unordered_set<std::string> globalAttributes
 	"spellcheck",
 	"style",
 	"tabindex",
-	"title" }
+	"title",
+
+    // ARIA
+    "role"
 };
 
 std::unordered_map<std::string, std::set<std::string>> attributeValidationSets
@@ -277,6 +280,8 @@ bool isAttributeValidForTag(const std::string& tag, const std::string& attr)
 
 	if (beginsWith(attr, "data-"))
 		return true;
+    else if(beginsWith(attr, "aria-"))
+        return true;
 
 	// Handle global attributes
 	auto glob_find = globalAttributes.find(attr);
