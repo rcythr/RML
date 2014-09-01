@@ -1,8 +1,8 @@
 // This file is part of RML
 // RML is licensed with the MIT License. See the LICENSE file for more information.
 
-#include "constants.h"
-#include "util.hpp"
+#include <RML/constants.hpp>
+#include <RML/util.hpp>
 
 std::unordered_set<std::string> html5Tags
 {
@@ -147,7 +147,7 @@ std::unordered_set<std::string> deprecatedTags
 	"xmp"
 };
 
-extern std::unordered_set<std::string> globalAttributes
+std::unordered_set<std::string> globalAttributes
 {
 	{ "accesskey",
 	"class",

@@ -1,7 +1,7 @@
 // This file is part of RML
 // RML is licensed with the MIT License. See the LICENSE file for more information.
 
-#include "rml.hpp"
+#include <RML/rml.hpp>
 
 #include <algorithm>
 #include <iostream>
@@ -37,18 +37,22 @@ int main(int argc, char* argv[])
 	}
 	else
 	{
-		std::cout << "  _______        __       ___      ___  ___       " << std::endl;
-		std::cout << " /\"      \\      /\"\"\\     |\"  \\    /\"  ||\"  |      " << std::endl;
-		std::cout << "|:        |    /    \\     \\   \\  //   |||  |      " << std::endl;
-		std::cout << "|_____/   )   /' /\\  \\    /\\\\  \\/.    ||:  |      " << std::endl;
-		std::cout << " //      /   //  __'  \\  |: \\.        | \\  |___   " << std::endl;
-		std::cout << "|:  __   \\  /   /  \\\\  \\ |.  \\    /:  |( \\_|:  \\  " << std::endl;
-		std::cout << "|__|  \\___)(___/    \\___)|___|\\__/|___| \\_______) " << std::endl << std::endl;
+        std::cout << " .----------------.  .----------------.  .----------------. " << std::endl;
+        std::cout << "| .--------------. || .--------------. || .--------------. |" << std::endl;
+        std::cout << "| |  _______     | || | ____    ____ | || |   _____      | |" << std::endl;
+        std::cout << "| | |_   __ \\    | || ||_   \\  /   _|| || |  |_   _|     | |" << std::endl;
+        std::cout << "| |   | |__) |   | || |  |   \\/   |  | || |    | |       | |" << std::endl;
+        std::cout << "| |   |  __ /    | || |  | |\\  /| |  | || |    | |   _   | |" << std::endl;
+        std::cout << "| |  _| |  \\ \\_  | || | _| |_\\/_| |_ | || |   _| |__/ |  | |" << std::endl;
+        std::cout << "| | |____| |___| | || ||_____||_____|| || |  |________|  | |" << std::endl;
+        std::cout << "| |              | || |              | || |              | |" << std::endl;
+        std::cout << "| '--------------' || '--------------' || '--------------' |" << std::endl;
+        std::cout << " '----------------'  '----------------'  '----------------' " << std::endl << std::endl;
 		std::cout << "Author: Richard Laughlin" << std::endl;
 		std::cout << "-------------------------------------------------------" << std::endl;
-		std::cout << "Purpose:\n    Compile .raml files into the appropriate .html.\n    By default does not insert extra whitespace." << std::endl;
+		std::cout << "Purpose:\n    Compile .rml files into the appropriate .html.\n    By default does not insert extra whitespace." << std::endl;
 		std::cout << "-------------------------------------------------------" << std::endl;
-		std::cout << "Usage: \n    RAML [indent_specifier] filename" << std::endl << std::endl;
+		std::cout << "Usage: \n    rml [indent_specifier] filename" << std::endl << std::endl;
 		std::cout << "    [indent_specifier] \t (Optional) Either \"tab\" or \"space\"" << std::endl;
 		std::cout << "    [filename] \t\t The filename to read in and compile to HTML." << std::endl;
 		std::cout << "-------------------------------------------------------" << std::endl;

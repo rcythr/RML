@@ -7,7 +7,7 @@
 #include <list>
 #include <memory>
 
-#include "rml_node.hpp"
+#include <RML/rml_node.hpp>
 
 struct RML
 {
