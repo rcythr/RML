@@ -23,10 +23,6 @@ This method has worked for years, but it is tedious and error prone. Worst of al
 
 ##Future Work
 
-#### Comments
-
-Definitely a must-have feature. Including the weird "IE [if ...]" comments for compatability with older browsers.
-
 #### Templating
 
 HTML often has a repetative nature to it. Certain structures are repeated again and again despite minor
