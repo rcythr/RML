@@ -32,7 +32,7 @@ namespace rml
 
         /**
          */
-        std::string toHtml(IndentType indent = IndentType::Space);
+        std::string toHtml(IndentType indent, size_t indent_count);
 
     private:
         std::list<std::shared_ptr<RMLNode>> roots;

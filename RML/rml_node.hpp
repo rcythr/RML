@@ -32,7 +32,7 @@ namespace rml
 
         /**
          */
-        static void writeIndent(std::stringstream& output, IndentType indent, size_t depth);
+		static void writeIndent(std::stringstream& output, IndentType indent, size_t indent_count, size_t depth);
         
         /**
          */
@@ -40,7 +40,7 @@ namespace rml
 
         /**
          */
-        virtual void write(std::stringstream& output, IndentType indent, size_t depth) = 0;
+		virtual void write(std::stringstream& output, IndentType indent, size_t indent_count, size_t depth) = 0;
     };
 
     /**
@@ -51,7 +51,7 @@ namespace rml
 
         /**
          */
-        virtual void write(std::stringstream& output, IndentType indent, size_t depth) override;
+		virtual void write(std::stringstream& output, IndentType indent, size_t indent_count, size_t depth) override;
     };
 
     /**
@@ -74,7 +74,7 @@ namespace rml
 
         /**
          */
-        virtual void write(std::stringstream& output, IndentType indent, size_t depth) override;
+		virtual void write(std::stringstream& output, IndentType indent, size_t indent_count, size_t depth) override;
 
         /**
          */
@@ -86,7 +86,7 @@ namespace rml
         std::string content;
         std::list<std::shared_ptr<RMLNode>> children;
 
-        virtual void write(std::stringstream& output, IndentType indent, size_t depth) override;
+		virtual void write(std::stringstream& output, IndentType indent, size_t indent_count, size_t depth) override;
 
         void addChild(std::shared_ptr<RMLNode> child);
     };

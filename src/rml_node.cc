@@ -9,16 +9,16 @@
 
 using namespace rml;
 
-void RMLTextNode::write(std::stringstream& output, IndentType indent, size_t depth)
+void RMLTextNode::write(std::stringstream& output, IndentType indent, size_t indent_count, size_t depth)
 {
-	writeIndent(output, indent, depth);
+	writeIndent(output, indent, indent_count, depth);
 	output << content;
 	writeEnding(output, indent);
 }
 
-void RMLHtmlNode::write(std::stringstream& output, IndentType indent, size_t depth)
+void RMLHtmlNode::write(std::stringstream& output, IndentType indent, size_t indent_count, size_t depth)
 {
-	writeIndent(output, indent, depth);
+	writeIndent(output, indent, indent_count, depth);
 	output << '<' << name;
 
 	// Add the ID attribute, if applicable
@@ -79,10 +79,10 @@ void RMLHtmlNode::write(std::stringstream& output, IndentType indent, size_t dep
 
 		for (const auto& child : children)
 		{
-			child->write(output, indent, depth + 1);
+			child->write(output, indent, indent_count, depth + 1);
 		}
 
-		writeIndent(output, indent, depth);
+		writeIndent(output, indent, indent_count, depth);
 		output << "</" << name << '>';
 		writeEnding(output, indent);
 	}
@@ -93,9 +93,9 @@ void RMLHtmlNode::addChild(std::shared_ptr<RMLNode> child)
 	children.push_back(child);
 }
 
-void RMLCommentNode::write(std::stringstream& output, IndentType indent, size_t depth)
+void RMLCommentNode::write(std::stringstream& output, IndentType indent, size_t indent_count, size_t depth)
 {
-    writeIndent(output, indent, depth);
+    writeIndent(output, indent, indent_count, depth);
     output << "<!-- " << content;
 
     if(children.size() > 0)
@@ -103,11 +103,11 @@ void RMLCommentNode::write(std::stringstream& output, IndentType indent, size_t 
         writeEnding(output, indent);
         for(const auto& child : children)
         {
-            child->write(output, indent, depth + 1);
+            child->write(output, indent, indent_count, depth + 1);
         }
     }
 
-    writeIndent(output, indent, depth);
+    writeIndent(output, indent, indent_count, depth);
     output << "-->";
     writeEnding(output, indent);
 }
@@ -117,7 +117,7 @@ void RMLCommentNode::addChild(std::shared_ptr<RMLNode> child)
     children.push_back(child);    
 }
 
-void RMLNode::writeIndent(std::stringstream& output, IndentType indent, size_t depth)
+void RMLNode::writeIndent(std::stringstream& output, IndentType indent, size_t indent_count, size_t depth)
 {
 	for (size_t i = 0; i < depth; ++i)
 	{
@@ -126,7 +126,8 @@ void RMLNode::writeIndent(std::stringstream& output, IndentType indent, size_t d
 		case IndentType::Unknown:
 			break;
 		case IndentType::Space:
-			output << "    ";
+			for (size_t i = 0; i < indent_count; ++i)
+				output << " ";
 			break;
 		case IndentType::Tab:
 			output << '\t';

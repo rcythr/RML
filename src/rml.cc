@@ -612,7 +612,7 @@ RML RML::create(std::string filedata)
 	return raml;
 }
 
-std::string RML::toHtml(IndentType indent)
+std::string RML::toHtml(IndentType indent, size_t indent_count)
 {
 	std::stringstream output;
 
@@ -620,7 +620,7 @@ std::string RML::toHtml(IndentType indent)
 
 	for (auto root : roots)
 	{
-		root->write(output, indent, 0);
+		root->write(output, indent, indent_count, 0);
 	}
 
 	return output.str();
