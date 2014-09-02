@@ -14,7 +14,7 @@ IF(!WIN32)
 ENDIF(!WIN32)
 
 # File all .cc files in the source dir and helpers dir
-file(GLOB_RECURSE SOURCES "src/*.cc")
+file(GLOB_RECURSE SOURCES "src/*.cc" "RML/*.hpp")
 
 # Setup include path for the lib
 include_directories(${CMAKE_SOURCE_DIR})

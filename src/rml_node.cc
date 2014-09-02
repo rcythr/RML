@@ -88,11 +88,6 @@ void RMLHtmlNode::write(std::stringstream& output, IndentType indent, size_t ind
 	}
 }
 
-void RMLHtmlNode::addChild(std::shared_ptr<RMLNode> child)
-{
-	children.push_back(child);
-}
-
 void RMLCommentNode::write(std::stringstream& output, IndentType indent, size_t indent_count, size_t depth)
 {
     writeIndent(output, indent, indent_count, depth);
@@ -112,7 +107,7 @@ void RMLCommentNode::write(std::stringstream& output, IndentType indent, size_t 
     writeEnding(output, indent);
 }
 
-void RMLCommentNode::addChild(std::shared_ptr<RMLNode> child)
+void RMLChildrenNode::addChild(std::shared_ptr<RMLNode> child)
 {
     children.push_back(child);    
 }
