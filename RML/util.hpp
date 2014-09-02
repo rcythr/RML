@@ -8,9 +8,12 @@
 
 namespace rml
 {
+    /**
+     */
+    void split(std::string& data, char delim, std::vector<std::string>& out);
 
-void split(std::string& data, char delim, std::vector<std::string>& out);
-
-bool beginsWith(const std::string& data, std::string substr);
+    /**
+     */
+    bool beginsWith(const std::string& data, std::string substr);
 
 }

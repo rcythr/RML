@@ -12,23 +12,31 @@
 namespace rml
 {
 
-struct RML
-{
-private:
+    /**
+     */
+    struct RML
+    {
+    public:
 
-	std::list<std::shared_ptr<RMLNode>> roots;
-	std::map<std::string, std::shared_ptr<RMLNode>> templates;
+        /**
+         */
+        static RML create(std::string filedata);
 
-public:
+        /**
+         */
+        RML() {}
 
-	static RML create(std::string filedata);
+        /**
+         */
+        virtual ~RML() {}
 
-	RML() {}
+        /**
+         */
+        std::string toHtml(IndentType indent = IndentType::Space);
 
-	virtual ~RML() {}
-
-	std::string toHtml(IndentType indent = IndentType::Space);
-
-};
+    private:
+        std::list<std::shared_ptr<RMLNode>> roots;
+        std::map<std::string, std::shared_ptr<RMLNode>> templates;
+    };
 
 }

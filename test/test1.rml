@@ -8,7 +8,24 @@ html lang="en"
 
         title
             Test 1 Page
+
         link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
+        
+        ?
+            Multiline comment
+
+            That can span as many lines
+
+            as you so choose.
+
+        ? HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries.
+
+        ? [if lt IE 9]>
+            script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"
+            script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"
+            <![endif]
+
+            
     body style="padding-top: 50px;"
         div.navbar.navbar-inverse.navbar-fixed-top role="navigation"
             div.container

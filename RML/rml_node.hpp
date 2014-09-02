@@ -13,44 +13,82 @@
 namespace rml
 {
 
-enum class IndentType
-{
-	Unknown,
-	Space,
-	Tab
-};
+    /**
+     */
+    enum class IndentType
+    {
+        Unknown,
+        Space,
+        Tab
+    };
 
-struct RMLNode
-{
-	virtual ~RMLNode() {}
+    /**
+     */
+    struct RMLNode
+    {
+        /**
+         */
+        virtual ~RMLNode() {}
 
-	static void writeIndent(std::stringstream& output, IndentType indent, size_t depth);
-	static void writeEnding(std::stringstream& output, IndentType indent);
+        /**
+         */
+        static void writeIndent(std::stringstream& output, IndentType indent, size_t depth);
+        
+        /**
+         */
+        static void writeEnding(std::stringstream& output, IndentType indent);
 
-	virtual void write(std::stringstream& output, IndentType indent, size_t depth) = 0;
-};
+        /**
+         */
+        virtual void write(std::stringstream& output, IndentType indent, size_t depth) = 0;
+    };
 
-struct RMLTextNode : public RMLNode
-{
-	std::string content;
+    /**
+     */
+    struct RMLTextNode : public RMLNode
+    {
+        std::string content;
 
-	virtual void write(std::stringstream& output, IndentType indent, size_t depth) override;
-};
+        /**
+         */
+        virtual void write(std::stringstream& output, IndentType indent, size_t depth) override;
+    };
 
-struct RMLHtmlNode : public RMLNode
-{
-	RMLHtmlNode() {}
-	RMLHtmlNode(std::string name) : name(name) {}
+    /**
+     */
+    struct RMLHtmlNode : public RMLNode
+    {
+        /**
+         */
+        RMLHtmlNode() {}
+        
+        /**
+         */
+        RMLHtmlNode(std::string name) : name(name) {}
 
-	std::string name;
-	std::string id;
-	std::vector<std::string> classes;
-	std::map<std::string, std::string> attrs;
-	std::list<std::shared_ptr<RMLNode>> children;
+        std::string name;
+        std::string id;
+        std::vector<std::string> classes;
+        std::map<std::string, std::string> attrs;
+        std::list<std::shared_ptr<RMLNode>> children;
 
-	virtual void write(std::stringstream& output, IndentType indent, size_t depth) override;
+        /**
+         */
+        virtual void write(std::stringstream& output, IndentType indent, size_t depth) override;
 
-	void addChild(std::shared_ptr<RMLNode> child);
-};
+        /**
+         */
+        void addChild(std::shared_ptr<RMLNode> child);
+    };
+
+    struct RMLCommentNode : public RMLNode
+    {
+        std::string content;
+        std::list<std::shared_ptr<RMLNode>> children;
+
+        virtual void write(std::stringstream& output, IndentType indent, size_t depth) override;
+
+        void addChild(std::shared_ptr<RMLNode> child);
+    };
 
 }

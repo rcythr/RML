@@ -93,6 +93,30 @@ void RMLHtmlNode::addChild(std::shared_ptr<RMLNode> child)
 	children.push_back(child);
 }
 
+void RMLCommentNode::write(std::stringstream& output, IndentType indent, size_t depth)
+{
+    writeIndent(output, indent, depth);
+    output << "<!-- " << content;
+
+    if(children.size() > 0)
+    {
+        writeEnding(output, indent);
+        for(const auto& child : children)
+        {
+            child->write(output, indent, depth + 1);
+        }
+    }
+
+    writeIndent(output, indent, depth);
+    output << "-->";
+    writeEnding(output, indent);
+}
+
+void RMLCommentNode::addChild(std::shared_ptr<RMLNode> child)
+{
+    children.push_back(child);    
+}
+
 void RMLNode::writeIndent(std::stringstream& output, IndentType indent, size_t depth)
 {
 	for (size_t i = 0; i < depth; ++i)

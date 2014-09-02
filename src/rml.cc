@@ -193,13 +193,22 @@ std::vector<std::shared_ptr<Node>> toNodeTree(std::vector<std::tuple<size_t, std
 	return result;
 }
 
-void handleSubNodes(std::shared_ptr<RMLHtmlNode> htmlNode, std::shared_ptr<Node> node);
-
 std::shared_ptr<RMLNode> toRMLTree(std::shared_ptr<Node> node)
 {
 	std::shared_ptr<RMLHtmlNode> htmlNode = nullptr;
 	std::shared_ptr<RMLTextNode> textNode = nullptr;
 	std::string buffer1, buffer2;
+
+    if(node->content[0] == '?')
+    {
+        auto commentNode = std::make_shared<RMLCommentNode>();
+        commentNode->content = node->content.substr(1);
+        for(auto& child : node->children)
+        {
+            commentNode->addChild(toRMLTree(child));
+        }
+        return commentNode;
+    }
 
 	LineParseState state = LineParseState::Tag;
 	for (char c : node->content)
